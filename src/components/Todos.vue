@@ -1,6 +1,15 @@
 <template>
   <div>
     <h3>Todos</h3>
+    <div class="legend">
+      <span>Double click to mark as completed</span>
+      <span>
+        <span class="incompleted-box"></span> = Incompleted
+      </span>
+      <span>
+        <span class="completed-box"></span> = Completed
+      </span>
+    </div>
     <div class="todos">
       <div v-for="todo in allTodos" :key="todo.id" class="todo">
         {{ todo.title }}
@@ -48,5 +57,25 @@ export default {
     right: 10px;
     color: #ffffff;
     cursor: pointer;
+  }
+
+  .legend {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 1rem;
+  }
+
+  .completed-box {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: #35495e;
+  }
+
+  .incompleted-box {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: #41b883;
   }
 </style>
