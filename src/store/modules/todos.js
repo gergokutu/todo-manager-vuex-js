@@ -11,7 +11,9 @@ const getters = {
 
 const actions = {
   async fetchTodos({ commit }) {
-    const response = await axios.get('https://jsonplaceholder.typicode.com/todos');
+    const response = await axios.get(
+      'https://jsonplaceholder.typicode.com/todos'
+    );
 
     commit('setTodos', response.data);
   },
@@ -22,12 +24,22 @@ const actions = {
     );
 
     commit('newTodo', response.data);
+  },
+  async deleteTodo({ commit }, id) {
+    // Do not need to save the response in a variable
+    // Just send the delete request to the db
+    await axios.delete(
+      `https://jsonplaceholder.typicode.com/todos/${id}`
+    );
+
+    commit('removeTodo', id);
   }
 };
 
 const mutations = {
   setTodos: (state, todos) => (state.todos = todos),
-  newTodo: (state, todo) => state.todos.unshift(todo) 
+  newTodo: (state, todo) => state.todos.unshift(todo),
+  removeTodo: (state, id) => state.todos = state.todos.filter(todo => todo.id !== id)
 };
 
 export default {
