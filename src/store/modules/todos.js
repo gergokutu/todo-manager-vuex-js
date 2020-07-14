@@ -1,5 +1,4 @@
 import axios from 'axios';
-// https://jsonplaceholder.typicode.com/todos
 
 const state = {
   todos: []
@@ -17,6 +16,7 @@ const actions = {
 
     commit('setTodos', response.data);
   },
+
   async addTodo({ commit }, title) {
     const response = await axios.post(
       'https://jsonplaceholder.typicode.com/todos',
@@ -25,6 +25,7 @@ const actions = {
 
     commit('newTodo', response.data);
   },
+
   async deleteTodo({ commit }, id) {
     // Do not need to save the response in a variable
     // Just send the delete request to the db
@@ -34,6 +35,7 @@ const actions = {
 
     commit('removeTodo', id);
   },
+
   async filterTodos({ commit }, event) {
     const limit = event.target[event.target.options.selectedIndex].value;
     const response = await axios.get(
@@ -41,6 +43,7 @@ const actions = {
     );
     commit('setTodos', response.data);
   },
+  
   async updateTodo({ commit }, updTodo) {
     const response = await axios.put(
       `https://jsonplaceholder.typicode.com/todos/${updTodo.id}`,

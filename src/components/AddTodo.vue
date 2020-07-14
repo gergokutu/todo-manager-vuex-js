@@ -25,7 +25,6 @@ export default {
     onSubmit(e) {
       e.preventDefault();
       this.addTodo(this.title);
-      console.log("SUBMITTED:", this.title)
     }
   }
 }
