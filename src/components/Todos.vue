@@ -11,7 +11,13 @@
       </span>
     </div>
     <div class="todos">
-      <div v-for="todo in allTodos" :key="todo.id" class="todo">
+      <div
+        @dblclick="onDblClick(todo)"
+        v-for="todo in allTodos"
+        :key="todo.id"
+        class="todo"
+        :class="{ 'is-completed' : todo.completed }"
+      >
         {{ todo.title }}
         <i class="fas fa-trash-alt" @click="deleteTodo(todo.id)"></i>
       </div>
@@ -25,7 +31,16 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'Todos',
   methods: {
-    ...mapActions(['fetchTodos', 'deleteTodo'])
+    ...mapActions(['fetchTodos', 'deleteTodo', 'updateTodo']),
+    onDblClick(todo) {
+      const updTodo = {
+        id: todo.id,
+        title: todo.title,
+        completed: !todo.completed
+      };
+    
+      this.updateTodo(updTodo);
+    }
   },
   computed: mapGetters(['allTodos']),
   created() {
@@ -77,5 +92,16 @@ export default {
     width: 10px;
     height: 10px;
     background: #41b883;
+  }
+
+  .is-completed {
+    background: #35495e;
+    color: #ffffff;
+  }
+
+  @media (max-width: 500px) {
+    .todos {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
